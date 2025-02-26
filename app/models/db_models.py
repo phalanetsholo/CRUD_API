@@ -1,15 +1,15 @@
 import psycopg2
-from config import Config
+import os
 
 def get_db_connection():
-    try:
-        conn = psycopg2.connect(
-            host=Config.DB_HOST,
-            database=Config.DB_NAME,
-            user=Config.DB_USER,
-            password=Config.DB_PASSWORD
-        )
-        return conn
-    except Exception as e:
-        print(f"Error connecting to the database: {e}")
-        return None
+    """
+    Establishes and returns a connection to the database.
+    """
+    conn = psycopg2.connect(
+        dbname=os.getenv('DB_NAME', 'users'),
+        user=os.getenv('DB_USER', 'postgres'),
+        password=os.getenv('DB_PASSWORD', 'your_password'),
+        host=os.getenv('DB_HOST', 'localhost'),
+        port=os.getenv('DB_PORT', '5432')
+    )
+    return conn

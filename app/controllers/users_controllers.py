@@ -8,10 +8,18 @@ class EmployeeController:
 
     @staticmethod
     def add_employee(name, position, salary):
+        
         success = Employee.add_employee(name, position, salary)
         if success:
             return {'message': 'Employee added successfully'}, 201
         return {'message': 'Error adding employee'}, 500
+    
+    @staticmethod
+    def update_employee(name, position, salary, id):
+        success = Employee.update_employee(name, position, salary,id)
+        if success:
+            return{'message': 'Employee updated successfully'}, 201
+        return {'message': 'Error updating employee'}, 500
 
     @staticmethod
     def delete_employee(employee_id):

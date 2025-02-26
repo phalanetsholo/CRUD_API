@@ -19,10 +19,10 @@ class AuthController:
     @staticmethod
     def signin(email, password):
         user = User.get_user_by_email(email)
-        if user and bcrypt.check_password_hash(user[3], password):  # Assuming user[3] is password_hash
-            if not user[4]:  # Assuming user[4] is is_admin field
+        if user and bcrypt.check_password_hash(user[3], password):  
+            if not user[4]:  
                 return {'message': 'You are not authorized'}, 403
             
-            access_token = create_access_token(identity=str(user[0]))  # user[0] is user_id
+            access_token = create_access_token(identity=str(user[0]))  
             return {'access_token': access_token}, 200
         return {'message': 'Invalid credentials'}, 401

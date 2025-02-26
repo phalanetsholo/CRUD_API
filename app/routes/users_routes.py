@@ -15,6 +15,12 @@ def add_employee():
     data = request.get_json()
     return jsonify(EmployeeController.add_employee(data['name'], data['position'], data['salary']))
 
+@employee_bp.route('/employees/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_employee():
+    data = request.get_json()
+    return jsonify(EmployeeController.update_employee(data['name'], data['position'], data['salary'], id))
+
 @employee_bp.route('/employees/<int:employee_id>', methods=['DELETE'])
 @jwt_required()
 def delete_employee(employee_id):

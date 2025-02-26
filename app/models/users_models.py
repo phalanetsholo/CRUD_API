@@ -30,6 +30,27 @@ class Employee:
         finally:
             cursor.close()
             conn.close()
+            
+    @staticmethod
+    def update_employee(name, position, salary, id):
+        conn = get_db_connection()
+        if not conn:
+            return False
+        
+        cursor = conn.cursor()
+        try:
+            cursor.execute(
+                "UPDATE employees SET name = %s, position = %s, salary = %s WHERE id = %s",
+                (name, position, salary, id)
+            )
+            conn.commit()
+            return True
+        except Exception as e:
+            print(f"Error updating employee: {e}")
+            return False
+        finally:
+            cursor.close()
+            conn.close()
 
     @staticmethod
     def delete_employee(employee_id):
